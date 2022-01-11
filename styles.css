@@ -1,0 +1,45 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  background: #f2f2f2;
+}
+
+nav {
+  position: sticky;
+  z-index: 100;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 60px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  width: 150px;
+  justify-content: space-between;
+  float: right;
+}
+ul,
+li,
+h1 {
+  margin: 0px;
+  padding: 0px;
+}
