@@ -130,6 +130,7 @@ h1 {
     .card {
         width: calc(100% - 20px);
     }
+
     .storyList {
         width: calc(100% - 20px);
     }
