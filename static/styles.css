@@ -87,9 +87,12 @@ nav {
     text-align: center;
     color: #262626;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .story {
+    width: 70px;
     padding: 5px;
 }
 
@@ -152,14 +155,15 @@ nav {
 
 .sidePanel {
     position: fixed;
-    width: 340px;
+    width: 380px;
     float: left;
     display: inline;
     overflow-x: hidden;
-    padding: 0px 30px;
+    padding-left:30px;
 }
 
 .currUser {
+    width: 370px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -192,7 +196,7 @@ nav {
     padding: 5px;
 }
 
-@media only screen and (max-width: 1019.999px) {
+@media only screen and (max-width: 1020px) {
     .mainPanel {
         width: 100%;
     }

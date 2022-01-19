@@ -1,0 +1,39 @@
+<div class="postList">
+    {% for post in posts %}
+    <div class="card">
+        <div>
+            <h2 style="margin-left: 10px;">
+                <a class="invisibleLink" href="#">{{ post.user.username }}</a>
+                <a class="fas fa-ellipsis-h invisibleLink" href="#" style="float:right; margin-right: 10px;">
+                </a>
+            </h2>
+        </div>
+        <img alt="{{post.title}}" src="{{post.image_url}}" />
+        <div>
+            <p>
+                <a class="far fa-heart invisibleLink" href="#"></a>
+                <a class="far fa-comment invisibleLink" href="#"></a>
+                <a class="far fa-paper-plane invisibleLink" href="#"></a>
+                <a class="far fa-bookmark invisibleLink" href="#" style="float:right;"></a>
+            </p>
+            <p class="likesCount">{{post.likes}} likes</p>
+            <p>
+                <span class="username">{{post.user.username}}</span> {{post.title}}...
+                <a href="#">more</a>
+            </p>
+            <div class="comments">
+                {% for comment in post.comments %}
+                <p><span class="username">{{comment.user.username}}</span> {{comment.text}}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="make_comments">
+            <div class="make_comments_inside">
+                <i class="far fa-smile"></i>
+                <input type="text" class="make_comments_hint" placeholder="Add a comment..."> </input>
+                <a href="#" style="float:right;">Post</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

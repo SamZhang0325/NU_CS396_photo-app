@@ -1,0 +1,8 @@
+<div class="storyList">
+    {% for story in stories %}
+    <div class="story">
+        <img alt="{{story.user.username}} Avatar" src="{{story.user.profile_url}}">
+        <p>{{story.user.username}}</p>
+    </div>
+    {% endfor %}
+</div>
