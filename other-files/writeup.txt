@@ -1,0 +1,11 @@
+- What corrections did you have to make?
+	- Very low contrast: Some texts have some hard-to-read color just to match the screenshot provided. I could change the color to something that is more readable.
+	- Empty link: There are some empty links across the web. It is just some placeholder for the future feature link. It also add functionality for keyboard(tab) control.
+	- Long alternative text: In the future, We might require input alt-text for images. Currently, just inject the title of the image as a placeholder.
+- Given that the photos and captions rely on user-generated content, do you think that the accessibility problems are all solvable? Why or why not?
+	- Since all of this relies on users, I do not think accessibility problems are easy to resolve. Sometimes users might use a photo that is not friendly to the website(plain white avatar); we can not force users to use an avatar that makes sense for accessibility.
+	- Some users might not provide alternative text for images they post(Although now Instagram uses machine learning to detect what users post to add alt-text, it might be difficult for us to implement that).
+- Do you think your website is usable if you turn off the CSS? Why or why not?
+	- I think it is still useable. Since the contents are still displayed in order, people can still find the information they need if it is really necessary. It just feels wried and not easy to read.
+- Do you think your website is usable if you turn off the images? Why or why not?
+	- It might still be useable. It will still give user suggestion, image will display as alt text, and the user will still able to make or read comment(the basic functionality still exist). But the website itself would not make sense since this is a photo-sharing website. 

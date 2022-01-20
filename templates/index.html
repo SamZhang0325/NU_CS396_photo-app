@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="noindex, nofollow" name="robots">
+    <meta content="IE=9" http-equiv="X-UA-Compatible" />
+    <title>Photo App</title>
+    <link href="/static/styles.css" rel="stylesheet" />
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" referrerpolicy="no-referrer" rel="stylesheet"
+    />
+</head>
+
+<body>
+    {% include 'includes/navbar.html' %}
+    <div class="page-wrap">
+        <div class="mainPanel">
+            {% include 'includes/stories.html' %} {% include 'includes/cards.html' %}
+        </div>
+        {% include 'includes/suggestions.html' %}
+    </div>
+    </div>
+</body>
+<!-- Solutions for users to add alt-text to image: When users are trying to send a new post,
+add a text field to allow users to write alt text other than having user go into the Advance
+setting to do so. -->
+
+</html>
