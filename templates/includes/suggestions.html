@@ -1,8 +1,6 @@
 <div class="sidePanel">
     <div class="currUser">
-        <h1><img alt="{{ user.username }} Avatar" src="{{ user.profile_url }}"
-                style="border-radius: 50%; margin-right: 10px;" />
-            {{ user.username }}</h1>
+        <h2><img alt="{{ user.username }} Avatar" src="{{ user.profile_url }}" style="border-radius: 50%; margin-right: 10px;" /> {{ user.username }}</h2>
     </div>
     <div>
         <p style="color: gray; font-weight: bold;">Suggestions for you</p>
@@ -12,7 +10,7 @@
             <img alt="{{ suggestion.username }} Avatar" src="{{ suggestion.thumb_url }}" />
             <div>
                 <span class="username">{{ suggestion.username }}</span><br>
-                <span style="color: gray;">suggested for you</span>
+                <span style="color: gray; margin-right:30px">suggested for you</span>
             </div>
             <a href="#" style="float:right;">follow</a>
         </div>

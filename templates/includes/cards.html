@@ -2,7 +2,7 @@
     {% for post in posts %}
     <div class="card">
         <div>
-            <h2 style="margin-left: 10px;">
+            <h2>
                 <a class="invisibleLink" href="#">{{ post.user.username }}</a>
                 <a class="fas fa-ellipsis-h invisibleLink" href="#" style="float:right; margin-right: 10px;">
                 </a>
@@ -11,10 +11,10 @@
         <img alt="{{post.title}}" src="{{post.image_url}}" />
         <div>
             <p>
-                <a class="far fa-heart invisibleLink" href="#"></a>
-                <a class="far fa-comment invisibleLink" href="#"></a>
-                <a class="far fa-paper-plane invisibleLink" href="#"></a>
-                <a class="far fa-bookmark invisibleLink" href="#" style="float:right;"></a>
+                <a class="far fa-heart fa-lg invisibleLink" href="#"></a>&ensp;
+                <a class="far fa-comment fa-lg invisibleLink" href="#"></a>&ensp;
+                <a class="far fa-paper-plane fa-lg invisibleLink" href="#"></a>
+                <a class="far fa-bookmark fa-lg invisibleLink" href="#" style="float:right;"></a>
             </p>
             <p class="likesCount">{{post.likes}} likes</p>
             <p>
