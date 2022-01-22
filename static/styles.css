@@ -16,11 +16,15 @@ h6 {
     font-family: "Comfortaa";
 }
 
-a:link {
-    color: #008ee2;
-    background-color: transparent;
+a:link, a:visited, a:active{
+    color: #0074b9;
     text-decoration: none;
 }
+
+a:hover {
+    color: #005c93;
+    text-decoration: none;
+  }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
@@ -85,14 +89,14 @@ nav {
     border-radius: 50%;
     width: 55px;
     height: 55px;
-    border: 3px solid #aaaaaa;
+    border: 3px solid #585858;
 }
 
 .storyList p {
     margin: 0px;
     font-size: 9pt;
     text-align: center;
-    color: #aaaaaa;
+    color: #585858;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

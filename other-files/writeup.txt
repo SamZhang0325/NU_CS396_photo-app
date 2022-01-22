@@ -1,6 +1,5 @@
 - What corrections did you have to make?
-	- Very low contrast: Some texts have some hard-to-read color just to match the screenshot provided. I could change the color to something that is more readable.
-	- Empty link: There are some empty links across the web. It is just some placeholder for the future feature link. It also add functionality for keyboard(tab) control.
+	- Suspicious link text: Apparently WCAG does not like the terms "more", Be according to the assignment, we should make it look similar to what is provided in the screenshot. 
 	- Long alternative text: In the future, We might require input alt-text for images. Currently, just inject the title of the image as a placeholder.
 - Given that the photos and captions rely on user-generated content, do you think that the accessibility problems are all solvable? Why or why not?
 	- Since all of this relies on users, I do not think accessibility problems are easy to resolve. Sometimes users might use a photo that is not friendly to the website(plain white avatar); we can not force users to use an avatar that makes sense for accessibility.
