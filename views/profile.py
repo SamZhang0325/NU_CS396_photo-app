@@ -4,8 +4,10 @@ from models import User
 
 import json
 
+
 def get_path():
     return request.host_url + 'api/posts/'
+
 
 class ProfileDetailEndpoint(Resource):
 
@@ -21,8 +23,8 @@ class ProfileDetailEndpoint(Resource):
 
 def initialize_routes(api):
     api.add_resource(
-        ProfileDetailEndpoint, 
-        '/api/profile', 
-        '/api/profile/', 
+        ProfileDetailEndpoint,
+        '/api/profile',
+        '/api/profile/',
         resource_class_kwargs={'current_user': api.app.current_user}
     )

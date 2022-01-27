@@ -3,15 +3,18 @@ from flask_restful import Resource
 from models import Following
 import json
 
+
 def get_path():
     return request.host_url + 'api/posts/'
+
 
 class FollowerListEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
-    
+
     def get(self):
-        data = Following.query.filter(Following.following_id == self.current_user.id).all()
+        data = Following.query.filter(
+            Following.following_id == self.current_user.id).all()
         if not data:
             return Response(json.dumps({'message': 'You do not have any follower'}), mimetype="application/json", status=404)
         data = [
@@ -22,9 +25,8 @@ class FollowerListEndpoint(Resource):
 
 def initialize_routes(api):
     api.add_resource(
-        FollowerListEndpoint, 
-        '/api/followers', 
-        '/api/followers/', 
+        FollowerListEndpoint,
+        '/api/followers',
+        '/api/followers/',
         resource_class_kwargs={'current_user': api.app.current_user}
     )
-    
