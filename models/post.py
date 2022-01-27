@@ -1,6 +1,6 @@
 from datetime import datetime
 import random
-from . import db
+from . import db, LikePost
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -29,7 +29,7 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post={0} by User={1}>'.format(self.id, self.user_id)
 
-    def to_dict(self, include_comments=True): 
+    def to_dict(self, include_comments=True, include_liked=True): 
         d = {
             'id': self.id,
             'image_url': self.image_url,
@@ -41,5 +41,8 @@ class Post(db.Model):
             d['comments'] = [
                 comment.to_dict() for comment in self.comments
             ]
+        if include_liked:
+            count = LikePost.query.filter(LikePost.post_id==self.id).count()
+            d['like_count'] = count
         return d
  
