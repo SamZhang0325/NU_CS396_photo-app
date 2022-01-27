@@ -10,8 +10,13 @@ class BookmarksListEndpoint(Resource):
         self.current_user = current_user
     
     def get(self):
-        # Your code here
-        return Response(json.dumps([]), mimetype="application/json", status=200)
+        data = Bookmark.query.filter(Bookmark.user_id == self.current_user.id).all()
+        data = [
+            item.to_dict() for item in data
+        ]
+        if not data:
+            return Response(json.dumps({'message': 'You do not have any bookmark'}), mimetype="application/json", status=404)
+        return Response(json.dumps(data), mimetype="application/json", status=200)
 
     def post(self):
         # Your code here

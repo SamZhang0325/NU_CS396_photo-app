@@ -10,8 +10,13 @@ class StoriesListEndpoint(Resource):
         self.current_user = current_user
     
     def get(self):
-        # Your code here:
-        return Response(json.dumps([]), mimetype="application/json", status=200)
+        data = Story.query.filter(Story.user_id.in_(get_authorized_user_ids(self.current_user))).all()
+        data = [
+            item.to_dict() for item in data
+        ]
+        if not data:
+            return Response(json.dumps({'message': 'No avilable story at this time'}), mimetype="application/json", status=404)
+        return Response(json.dumps(data), mimetype="application/json", status=200)
 
 
 def initialize_routes(api):
