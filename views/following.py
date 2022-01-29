@@ -26,6 +26,10 @@ class FollowingListEndpoint(Resource):
         body = request.get_json()
         following_id = body.get('user_id')
         user = self.current_user
+        find_user = User.query.get(following_id)
+        print(find_user)
+        if not find_user:
+            return Response(json.dumps({'message': 'User not found'}), mimetype="application/json", status=404)
         if already_following(following_id, user):
             return Response(json.dumps({'message': 'Already add to following'}), mimetype="application/json", status=400)
         data = Following(user.id, following_id)

@@ -40,6 +40,7 @@ class CommentDetailEndpoint(Resource):
         }
         return Response(json.dumps(serialized_data), mimetype="application/json", status=200)
 
+
 class CommentLikeEndpoint(Resource):
 
     def __init__(self, current_user):
@@ -47,7 +48,7 @@ class CommentLikeEndpoint(Resource):
 
     def post(self, comment_id):
         user = self.current_user
-        if not can_view_comment(user,comment_id):
+        if not can_view_comment(user, comment_id):
             return Response(json.dumps({'message': 'Comment does not exist'}), mimetype="application/json", status=404)
         if already_like(comment_id, user):
             return Response(json.dumps({'message': 'Already liked'}), mimetype="application/json", status=400)
@@ -56,11 +57,13 @@ class CommentLikeEndpoint(Resource):
         db.session.commit()
         return Response(json.dumps(data.to_dict()), mimetype="application/json", status=201)
 
-def can_view_comment(user,comment_id):
+
+def can_view_comment(user, comment_id):
     comment = Comment.query.get(comment_id)
     if not comment:
         return False
-    return can_view_post(comment.post_id,user)
+    return can_view_post(comment.post_id, user)
+
 
 def already_like(comment_id, current_user):
     data = LikeComment.query.filter(LikeComment.user_id == current_user.id).filter(
@@ -68,6 +71,7 @@ def already_like(comment_id, current_user):
     if data:
         return True
     return False
+
 
 def initialize_routes(api):
     api.add_resource(

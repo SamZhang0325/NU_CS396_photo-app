@@ -29,7 +29,7 @@ class PostLikesDetailEndpoint(Resource):
 
     def delete(self, post_id, id):
         data = LikePost.query.get(id)
-        if not data or data.user_id != self.current_user.id:
+        if not data or data.user_id != self.current_user.id or data.post_id != int(post_id):
             return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=404)
         LikePost.query.filter_by(id=id).delete()
         db.session.commit()

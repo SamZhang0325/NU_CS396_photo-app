@@ -20,7 +20,7 @@ class PostListEndpoint(Resource):
         limit = body.args.get('limit')
         if not limit:
             limit = 10
-        if int(limit) > 50:
+        if not 1 <= int(limit) <= 50:
             return Response(json.dumps({'message': 'Limit must be an integer between 1 and 50'}), mimetype="application/json", status=400)
         auth_users_ids = get_authorized_user_ids(self.current_user)
         data = Post.query.filter(Post.user_id.in_(
