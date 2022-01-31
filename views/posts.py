@@ -1,7 +1,7 @@
 from flask import Response, request
 from flask_restful import Resource
 from models import Post, User, db
-from . import can_view_post, get_authorized_user_ids
+from . import can_view_post, get_authorized_user_ids, check_int, check_str
 import json
 from sqlalchemy import and_
 
@@ -18,6 +18,8 @@ class PostListEndpoint(Resource):
     def get(self):
         body = request
         limit = body.args.get('limit')
+        if not check_int(limit, True):
+            return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
         if not limit:
             limit = 10
         if not 1 <= int(limit) <= 50:
@@ -37,6 +39,10 @@ class PostListEndpoint(Resource):
         image_url = body.get('image_url')
         caption = body.get('caption')
         alt_text = body.get('alt_text')
+
+        if not check_str(alt_text, True, True) or not check_str(image_url) or not check_str(caption, True, True):
+            return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
+
         user_id = self.current_user.id  # id of the user who is logged in
 
         # create post:
@@ -52,6 +58,8 @@ class PostDetailEndpoint(Resource):
         self.current_user = current_user
 
     def patch(self, id):
+        if not check_int(id):
+            return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
         post = Post.query.get(id)
 
         # a user can only edit their own post:
@@ -68,7 +76,8 @@ class PostDetailEndpoint(Resource):
         return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
 
     def delete(self, id):
-
+        if not check_int(id):
+            return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
         # a user can only delete their own post:
         post = Post.query.get(id)
         if not post or post.user_id != self.current_user.id:
@@ -82,6 +91,8 @@ class PostDetailEndpoint(Resource):
         return Response(json.dumps(serialized_data), mimetype="application/json", status=200)
 
     def get(self, id):
+        if not check_int(id):
+            return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
         post = Post.query.get(id)
 
         # if the user is not allowed to see the post or if the post does not exist, return 404:

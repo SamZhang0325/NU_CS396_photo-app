@@ -1,6 +1,7 @@
 from flask import Response, request
 from flask_restful import Resource
 from models import Bookmark, db, post
+from . import check_int
 import json
 from . import can_view_post
 
@@ -23,6 +24,8 @@ class BookmarksListEndpoint(Resource):
     def post(self):
         body = request.get_json()
         post_id = body.get('post_id')
+        if not check_int(post_id):
+            return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
         user = self.current_user
         if not can_view_post(post_id, user):
             return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=404)
@@ -31,7 +34,7 @@ class BookmarksListEndpoint(Resource):
         data = Bookmark(user.id, post_id)
         db.session.add(data)
         db.session.commit()
-        return Response(json.dumps(json.dumps(data.to_dict())), mimetype="application/json", status=201)
+        return Response(json.dumps(data.to_dict()), mimetype="application/json", status=201)
 
 
 class BookmarkDetailEndpoint(Resource):
@@ -40,6 +43,8 @@ class BookmarkDetailEndpoint(Resource):
         self.current_user = current_user
 
     def delete(self, id):
+        if not check_int(id):
+            return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
         data = Bookmark.query.get(id)
         if not data or data.user_id != self.current_user.id:
             return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=404)

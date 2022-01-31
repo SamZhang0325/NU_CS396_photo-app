@@ -1,6 +1,7 @@
 from flask import Response, request
 from flask_restful import Resource
 from models import Following, User, db
+from . import check_int
 import json
 
 
@@ -25,9 +26,10 @@ class FollowingListEndpoint(Resource):
     def post(self):
         body = request.get_json()
         following_id = body.get('user_id')
+        if not check_int(following_id):
+            return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
         user = self.current_user
         find_user = User.query.get(following_id)
-        print(find_user)
         if not find_user:
             return Response(json.dumps({'message': 'User not found'}), mimetype="application/json", status=404)
         if already_following(following_id, user):
@@ -43,6 +45,8 @@ class FollowingDetailEndpoint(Resource):
         self.current_user = current_user
 
     def delete(self, id):
+        if not check_int(id):
+            return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
         data = Following.query.get(id)
         if not data or data.user_id != self.current_user.id:
             return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=404)
