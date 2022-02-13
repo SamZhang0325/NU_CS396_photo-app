@@ -1,7 +1,14 @@
-<nav>
+<nav class="main-nav">
     <h1>Photo App</h1>
-    <div class=userControlPannel>
-        <a>{{ user.get('username') }}</a>
-        <a><a href="#" style="margin-left: 10px;">Sign out</a></a>
-    </div>
+    <ul>
+        <li>
+            {% if request.url_rule.endpoint == 'api_docs' %}
+                <a href="/">Home</a>
+            {% else %}
+                <a href="/api">API Docs</a>
+            {% endif %}
+        </li>
+        <li><span>{{ user.username }}</span></li>
+        <li><a href="#">Sign out</a></li>
+    </ul>
 </nav>
