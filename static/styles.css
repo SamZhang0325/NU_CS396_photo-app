@@ -137,6 +137,9 @@ nav {
 .make_comments_hint {
     border: none;
     margin-right: 5px;
+    border-width: 0px;
+    outline: none;
+    width: 85%;
 }
 
 .make_comments {
@@ -155,6 +158,14 @@ nav {
 .comments p {
     margin: 0px;
     margin-bottom: 5px;
+}
+
+.commentSubmit{
+    float:right;
+    color:#0074b9;
+    border:0px #000 solid;
+    background-color:#fff;
+    font-size: 16px;
 }
 
 .mainPanel {
