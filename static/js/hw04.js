@@ -1,4 +1,6 @@
 let userID;
+const postModal = document.getElementById("postModal");
+
 const story2Html = (story) => {
   return `
         <div class="story">
@@ -69,7 +71,9 @@ const posts2comment = (posts) => {
         posts.comments[comment_number - 1].user.username
       }</span> ${posts.comments[comment_number - 1].text}</p>`)
     : comment_number >= 1
-    ? (comment = `<a href="#">&nbsp;&nbsp;View all ${comment_number} comments</a><p><span class="username">${
+    ? (comment = `<a href="javascript:{}" onclick="openPostModal(${
+        posts.id
+      })">&nbsp;&nbsp;View all ${comment_number} comments</a><p><span class="username">${
         posts.comments[comment_number - 1].user.username
       }</span> ${posts.comments[comment_number - 1].text}</p>`)
     : (comment = `The post doesn't have a comment yet.`);
@@ -297,7 +301,7 @@ const submitComment = (event) => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      fetch(`http://127.0.0.1:5000/api/posts/${post_id}`)
+      fetch(`/api/posts/${post_id}`)
         .then((response) => response.json())
         .then((data) => {
           const html = posts2comment(data);
@@ -311,3 +315,17 @@ const submitComment = (event) => {
     .querySelector(`#form-${post_id}`)
     .reset();
 };
+
+const openPostModal= (posts_id) => {
+  postModal.style.display = "block";
+ 
+}
+const closePostModal = () => {
+  postModal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == postModal) {
+    postModal.style.display = "none";
+  }
+}
