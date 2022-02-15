@@ -36,7 +36,6 @@ body {
 
 nav {
   position: fixed;
-  z-index: 100;
   width: 100%;
   background-color: white;
   display: flex;
@@ -128,7 +127,7 @@ nav {
   margin-left: -10px;
 }
 
-.card .username {
+.username {
   font-weight: bold;
 }
 
@@ -236,41 +235,17 @@ nav {
   color: #cf0c0c !important;
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
+.suggest-for-you{
+  color: #585858;
+  margin-right:40px;
 }
 
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  border-radius: 30px;
-  width: 80%;
+.float-right{
+  float:right;
 }
 
-.closePostModal {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.closePostModal:hover,
-.closePostModal:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
+.mr10{
+  margin-right: 10px;
 }
 
 @media only screen and (max-width: 1020px) {
@@ -293,4 +268,112 @@ nav {
   .sidePanel {
     display: none;
   }
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  border-radius: 5px;
+  margin: 60px auto 120px;
+  max-width: 900px;
+  height: 80%;
+  position: relative;
+}
+
+.modalLeft{
+  width: 550px;
+  height: 100%;
+  min-width: 120px;
+  overflow: hidden;
+  float: left;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-right: 1px solid #ccc;
+}
+
+.commentDetail{
+  margin: 10px;
+  padding-bottom: 10px;
+}
+
+.modalRight{
+  margin-left: 550px;
+  height: 100%;
+  overflow: scroll;
+}
+
+.commentLeft{
+  width: 50px;
+  float: left;
+}
+
+.commentLeft img{
+margin: 2px;
+border-radius: 50%;
+}
+
+.commentRight {
+  margin-left: 10px;
+  width: 50px;
+  float: right;
+}
+.commentCenter {
+    margin: 0 50px 0 50px;
+}
+
+.modalUser {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.modalUser h3 {
+  margin-left: 20px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  margin-block-end: 10px;
+}
+
+.modalUser img {
+  border-radius: 50%;
+  margin-right:10px;
+  width: 50px;
+}
+
+.closePostModal {
+  color: #575757;
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.closePostModal:hover,
+.closePostModal:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+@media only screen and (max-width: 930px) {
+  
 }
