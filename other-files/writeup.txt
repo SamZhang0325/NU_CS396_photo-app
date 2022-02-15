@@ -8,3 +8,14 @@
 	- I think it is still useable. Since the contents are still displayed in order, people can still find the information they need if it is really necessary. It just feels wried and not easy to read.
 - Do you think your website is usable if you turn off the images? Why or why not?
 	- It might still be useable. It will still give user suggestion, image will display as alt text, and the user will still able to make or read comment(the basic functionality still exist). But the website itself would not make sense since this is a photo-sharing website. 
+
+- What resources did you consult as you implemented the accessibility features? Were there any that you found useful that aren’t on the Accessibility Resources page?
+	- I was reading MDN web docs to get information about how to implement the accessibility features. I found that stack overflow is a great resource to get to know more about accessibility.
+
+- Reflect on the work that went into making your website accessible.
+	- Was it a lot of additional work?
+		- It was not a lot of additional work, but some implementation require extra work due to the way I implement the page rendering. 
+	- What was the most challenging part?
+		- Controlling the tab after the modal is challenging. 
+	- Do you think that designing for accessibility also improves the usability of the site for all users? Why or why not?
+		- I think it will improves for most of the user, because the page is easy to access without mouse, and it made voiceover to control the webpage possible. 

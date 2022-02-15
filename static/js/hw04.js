@@ -51,7 +51,7 @@ const suggestions2Html = (suggestions) => {
         <span class="username">${suggestions.username}</span><br>
         <span class="suggest-for-you">suggested for you</span>
     </div>
-    <spam id="followButton"><a href="javascript:{}" class="float-right mainTab" onclick="suggestedFollow(${suggestions.id},undefined)" aria-label="Follow this user">follow</a></spam>
+    <spam id="followButton"><a href="javascript:{}" class="float-right mainTab" onclick="suggestedFollow(${suggestions.id},undefined)" aria-label="Follow this user" aria-checked="false">follow</a></spam>
 </div>
       `;
 };
@@ -85,23 +85,27 @@ const posts2comment = (posts) => {
 const posts2liked = (posts) => {
   let liked = "far",
     likeID,
-    likeAriaLabel = "Like this post";
+    likeAriaLabel = "Like this post",
+    aria_checked="false";
   posts.current_user_like_id &&
-    ((liked = "fas red"),
+    (liked = "fas red"),
     (likeID = posts.current_user_like_id),
-    (likeAriaLabel = "Unlike this post"));
-  return `<a class="${liked} fa-heart fa-lg invisibleLink mainTab" aria-label="${likeAriaLabel} mainTab" onclick="likePost(${posts.id},${likeID})" href="javascript:{}"></a>`;
+    (likeAriaLabel = "Unlike this post"),
+    aria_checked="true";
+  return `<a class="${liked} fa-heart fa-lg invisibleLink mainTab mainTab" aria-label=${likeAriaLabel} aria-checked=${aria_checked} onclick="likePost(${posts.id},${likeID})" href="javascript:{}"></a>`;
 };
 
 const posts2bookmarked = (posts) => {
   let bookmarked = "far",
     bookmarkID,
-    bookmarkAriaLabel = "Bookmark this post";
+    bookmarkAriaLabel = "Bookmark this post",
+    aria_checked="false";
   posts.current_user_bookmark_id &&
-    ((bookmarked = "fas"),
+    (bookmarked = "fas"),
     (bookmarkID = posts.current_user_bookmark_id),
-    (bookmarkAriaLabel = "Remove bookmark for this post"));
-  return `<a class="${bookmarked} fa-bookmark fa-lg invisibleLink float-right mainTab" aria-label="${bookmarkAriaLabel}" onclick="bookmarkPost(${posts.id},${bookmarkID})" href="javascript:{}"></a>
+    (bookmarkAriaLabel = "Remove bookmark for this post"),
+    aria_checked="true";
+  return `<a class="${bookmarked} fa-bookmark fa-lg invisibleLink float-right mainTab" aria-label=${bookmarkAriaLabel} aria-checked=${aria_checked} onclick="bookmarkPost(${posts.id},${bookmarkID})" href="javascript:{}"></a>
     `;
 };
 
@@ -195,7 +199,7 @@ const likePost = (post_id, current_user_like_id) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        html.innerHTML = `<a class="far fa-heart fa-lg invisibleLink mainTab" aria-label="Like this post" onclick="likePost(${post_id},undefined)" href="javascript:{}"></a>`;
+        html.innerHTML = `<a class="far fa-heart fa-lg invisibleLink mainTab" aria-checked="false" aria-label="Like this post" onclick="likePost(${post_id},undefined)" href="javascript:{}"></a>`;
         likeHtml.innerHTML = `${likeCount - 1} likes`;
       });
   } else {
@@ -208,7 +212,7 @@ const likePost = (post_id, current_user_like_id) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        html.innerHTML = `<a class="fas red fa-heart fa-lg invisibleLink mainTab" aria-label="Unlike this post" onclick="likePost(${post_id},${data.id})" href="javascript:{}"></a>`;
+        html.innerHTML = `<a class="fas red fa-heart fa-lg invisibleLink mainTab" aria-checked="true" aria-label="Unlike this post" onclick="likePost(${post_id},${data.id})" href="javascript:{}"></a>`;
         likeHtml.innerHTML = `${likeCount + 1} likes`;
       });
   }
@@ -228,7 +232,7 @@ const bookmarkPost = (post_id, current_user_bookmark_id) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        html.innerHTML = `<a class="far fa-bookmark fa-lg invisibleLink float-right mainTab" aria-label="Bookmark this post" onclick="bookmarkPost(${post_id},undefined)" href="javascript:{}"></a>`;
+        html.innerHTML = `<a class="far fa-bookmark fa-lg invisibleLink float-right mainTab" aria-checked="false" aria-label="Bookmark this post" onclick="bookmarkPost(${post_id},undefined)" href="javascript:{}"></a>`;
       });
   } else {
     const postData = {
@@ -245,7 +249,7 @@ const bookmarkPost = (post_id, current_user_bookmark_id) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        html.innerHTML = `<a class="fas fa-bookmark fa-lg invisibleLink float-right mainTab" aria-label="Remove bookmark from this post" onclick="bookmarkPost(${post_id},${data.id})" href="javascript:{}"></a>`;
+        html.innerHTML = `<a class="fas fa-bookmark fa-lg invisibleLink float-right mainTab" aria-checked="true" aria-label="Remove bookmark from this post" onclick="bookmarkPost(${post_id},${data.id})" href="javascript:{}"></a>`;
       });
   }
 };
@@ -264,7 +268,7 @@ const suggestedFollow = (suggestion_id, followingID) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        html.innerHTML = `<a href="javascript:{}" class="float-right mainTab" onclick="suggestedFollow(${suggestion_id},undefined)" aria-label="follow this user">follow</a>`;
+        html.innerHTML = `<a href="javascript:{}" class="float-right mainTab" onclick="suggestedFollow(${suggestion_id},undefined)" aria-checked="false" aria-label="follow this user">follow</a>`;
       });
   } else {
     const postData = {
@@ -281,7 +285,7 @@ const suggestedFollow = (suggestion_id, followingID) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        html.innerHTML = `<a href="javascript:{}" class="float-right mainTab" onclick="suggestedFollow(${suggestion_id},${data.id})" aria-label="Unfollow this user">unfollow</a>`;
+        html.innerHTML = `<a href="javascript:{}" class="float-right mainTab" onclick="suggestedFollow(${suggestion_id},${data.id})" aria-checked="true" aria-label="Unfollow this user">unfollow</a>`;
       });
   }
 };
@@ -322,7 +326,7 @@ const comment2Detail = (comments) => {
   return `
   <div class="commentDetail">
     <div class="commentLeft"><img alt="${comments.user.username} Avatar" src="${comments.user.thumb_url}"></div>
-    <div class="commentRight"><a class="far fa-heart fa-lg invisibleLink modalTab" aria-label="Like this comment"
+    <div class="commentRight"><a class="far fa-heart fa-lg invisibleLink modalTab" aria-checked="false" aria-label="Like this comment"
       href="javascript:{}"></a></div>
   <div class="commentCenter">
     <p><span class="username">${comments.user.username}</span> ${comments.text}</p></div>
