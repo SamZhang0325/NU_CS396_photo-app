@@ -140,7 +140,7 @@ nav {
   margin-right: 5px;
   border-width: 0px;
   outline: none;
-  width: 85%;
+  width: 80%;
 }
 
 .make_comments {
@@ -235,16 +235,16 @@ nav {
   color: #cf0c0c !important;
 }
 
-.suggest-for-you{
+.suggest-for-you {
   color: #585858;
-  margin-right:40px;
+  margin-right: 40px;
 }
 
-.float-right{
-  float:right;
+.float-right {
+  float: right;
 }
 
-.mr10{
+.mr10 {
   margin-right: 10px;
 }
 
@@ -293,7 +293,7 @@ nav {
   position: relative;
 }
 
-.modalLeft{
+.modalLeft {
   width: 550px;
   height: 100%;
   min-width: 120px;
@@ -305,25 +305,25 @@ nav {
   border-right: 1px solid #ccc;
 }
 
-.commentDetail{
+.commentDetail {
   margin: 10px;
   padding-bottom: 10px;
 }
 
-.modalRight{
+.modalRight {
   margin-left: 550px;
   height: 100%;
   overflow: scroll;
 }
 
-.commentLeft{
+.commentLeft {
   width: 50px;
   float: left;
 }
 
-.commentLeft img{
-margin: 2px;
-border-radius: 50%;
+.commentLeft img {
+  margin: 2px;
+  border-radius: 50%;
 }
 
 .commentRight {
@@ -332,7 +332,7 @@ border-radius: 50%;
   float: right;
 }
 .commentCenter {
-    margin: 0 50px 0 50px;
+  margin: 0 50px 0 50px;
 }
 
 .modalUser {
@@ -352,7 +352,7 @@ border-radius: 50%;
 
 .modalUser img {
   border-radius: 50%;
-  margin-right:10px;
+  margin-right: 10px;
   width: 50px;
 }
 
@@ -372,8 +372,5 @@ border-radius: 50%;
   cursor: pointer;
 }
 
-
-
-@media only screen and (max-width: 930px) {
-  
+@media only screen and (max-width: 950px) {
 }

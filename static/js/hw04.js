@@ -71,13 +71,21 @@ const posts2comment = (posts) => {
   comment_number === 1
     ? (comment = `<p><span class="username">${
         posts.comments[comment_number - 1].user.username
-      }</span> ${posts.comments[comment_number - 1].text}</p>`)
+      }</span> ${
+        posts.comments[comment_number - 1].text
+      }</p><p class="post_time">${
+        posts.comments[comment_number - 1].comment_time
+      }</p>`)
     : comment_number >= 1
     ? (comment = `<a href="javascript:{}" class="mainTab" onclick="openPostModal(${
         posts.id
       })">&nbsp;&nbsp;View all ${comment_number} comments</a><p><span class="username">${
         posts.comments[comment_number - 1].user.username
-      }</span> ${posts.comments[comment_number - 1].text}</p>`)
+      }</span> ${
+        posts.comments[comment_number - 1].text
+      }</p><p class="post_time">${
+        posts.comments[comment_number - 1].comment_time
+      }</p>`)
     : (comment = `The post doesn't have a comment yet.`);
   return comment;
 };
@@ -86,12 +94,11 @@ const posts2liked = (posts) => {
   let liked = "far",
     likeID,
     likeAriaLabel = "Like this post",
-    aria_checked="false";
-  posts.current_user_like_id &&
-    (liked = "fas red"),
+    aria_checked = "false";
+  posts.current_user_like_id && (liked = "fas red"),
     (likeID = posts.current_user_like_id),
     (likeAriaLabel = "Unlike this post"),
-    aria_checked="true";
+    (aria_checked = "true");
   return `<a class="${liked} fa-heart fa-lg invisibleLink mainTab mainTab" aria-label=${likeAriaLabel} aria-checked=${aria_checked} onclick="likePost(${posts.id},${likeID})" href="javascript:{}"></a>`;
 };
 
@@ -99,12 +106,11 @@ const posts2bookmarked = (posts) => {
   let bookmarked = "far",
     bookmarkID,
     bookmarkAriaLabel = "Bookmark this post",
-    aria_checked="false";
-  posts.current_user_bookmark_id &&
-    (bookmarked = "fas"),
+    aria_checked = "false";
+  posts.current_user_bookmark_id && (bookmarked = "fas"),
     (bookmarkID = posts.current_user_bookmark_id),
     (bookmarkAriaLabel = "Remove bookmark for this post"),
-    aria_checked="true";
+    (aria_checked = "true");
   return `<a class="${bookmarked} fa-bookmark fa-lg invisibleLink float-right mainTab" aria-label=${bookmarkAriaLabel} aria-checked=${aria_checked} onclick="bookmarkPost(${posts.id},${bookmarkID})" href="javascript:{}"></a>
     `;
 };
@@ -138,12 +144,12 @@ const posts2Html = (posts) => {
             <p>
                 <span class="username">${posts.user.username}</span> ${posts.caption}...
                 <a class="mainTab" href="#">more</a>
+                <p class="post_time">${posts.display_time}</p>
             </p>
             <div class="comments">
             ${comment}
             </div>
         </div>
-        <span class="post_time">${posts.display_time}</span>
         <div class="make_comments">
             <div class="make_comments_inside">
             <form onsubmit="submitComment(event);return false;" id="form-${posts.id}">
@@ -323,13 +329,15 @@ const submitComment = (event) => {
 };
 
 const comment2Detail = (comments) => {
+  console.log(comments);
   return `
   <div class="commentDetail">
     <div class="commentLeft"><img alt="${comments.user.username} Avatar" src="${comments.user.thumb_url}"></div>
     <div class="commentRight"><a class="far fa-heart fa-lg invisibleLink modalTab" aria-checked="false" aria-label="Like this comment"
       href="javascript:{}"></a></div>
   <div class="commentCenter">
-    <p><span class="username">${comments.user.username}</span> ${comments.text}</p></div>
+    <p><span class="username">${comments.user.username}</span> ${comments.text}</p><p class="post_time">${comments.comment_time}</p></div>
+    
   </div>
     `;
 };
@@ -357,11 +365,11 @@ const openPostModal = (posts_id) => {
       const html = detail2Html(data);
       document.querySelector(".modal-content").innerHTML = html;
     });
-    for (let i = 0; i < mainTab.length; i++) {
-      mainTab[i].setAttribute("tabindex", "-1");
-      mainTab[i].setAttribute("aria-hidden", "true");
-    }
-    document.getElementsByTagName("body")[0].style.overflow = "hidden";
+  for (let i = 0; i < mainTab.length; i++) {
+    mainTab[i].setAttribute("tabindex", "-1");
+    mainTab[i].setAttribute("aria-hidden", "true");
+  }
+  document.getElementsByTagName("body")[0].style.overflow = "hidden";
 };
 
 const closePostModal = () => {
@@ -383,7 +391,7 @@ window.onclick = function (event) {
   }
 };
 
-document.addEventListener('keyup', logKey);
+document.addEventListener("keyup", logKey);
 
 function logKey(e) {
   if (e.keyCode == 27) {

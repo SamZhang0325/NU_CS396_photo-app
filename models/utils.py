@@ -1,15 +1,21 @@
 from datetime import datetime
 
+
 def get_display_time(timestamp):
     diff = datetime.utcnow() - timestamp
     days = diff.days
-    seconds = diff.seconds
-    hours = seconds // 3600
 
-    # print(diff, days, seconds, hours)
     if days == 0:
+        seconds = diff.seconds
+        hours = seconds // 3600
         if hours < 1:
-            return 'Just now'
+            minutes = seconds // 60
+            if seconds < 10:
+                return 'just now'
+            elif seconds < 60:
+                return '{0} seconds ago'.format(secondsminutes)
+            else:
+                return '{0} minutes ago'.format(minutes)
         elif hours == 1:
             return '1 hour ago'
         else:

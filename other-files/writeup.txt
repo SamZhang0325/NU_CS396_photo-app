@@ -18,4 +18,4 @@
 	- What was the most challenging part?
 		- Controlling the tab after the modal is challenging. 
 	- Do you think that designing for accessibility also improves the usability of the site for all users? Why or why not?
-		- I think it will improves for most of the user, because the page is easy to access without mouse, and it made voiceover to control the webpage possible. 
+		- I think it will improve for most of the users, because the page is easy to access without a mouse, and it made voiceover to control the webpage possible. 
