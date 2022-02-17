@@ -13,7 +13,7 @@ def get_display_time(timestamp):
             if seconds < 10:
                 return 'just now'
             elif seconds < 60:
-                return '{0} seconds ago'.format(secondsminutes)
+                return '{0} seconds ago'.format(seconds)
             else:
                 return '{0} minutes ago'.format(minutes)
         elif hours == 1:
