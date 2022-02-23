@@ -3,6 +3,8 @@ from flask_restful import Resource
 from . import can_view_post, check_int, check_str
 import json
 from models import db, Comment, Post, LikeComment
+import flask_jwt_extended
+import decorators
 
 
 class CommentListEndpoint(Resource):
@@ -10,6 +12,7 @@ class CommentListEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
+    @decorators.jwt_or_login
     def post(self):
         body = request.get_json()
         post_id = body.get('post_id')
@@ -31,6 +34,7 @@ class CommentDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
+    @decorators.jwt_or_login
     def delete(self, id):
         if not check_int(id):
             return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
@@ -50,6 +54,7 @@ class CommentLikeEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
+    @decorators.jwt_or_login
     def post(self, comment_id):
         if not check_int(comment_id):
             return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
@@ -84,18 +89,18 @@ def initialize_routes(api):
         CommentListEndpoint,
         '/api/comments',
         '/api/comments/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
 
     )
     api.add_resource(
         CommentDetailEndpoint,
         '/api/comments/<id>',
         '/api/comments/<id>',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
     api.add_resource(
         CommentLikeEndpoint,
         '/api/comments/like/<comment_id>',
         '/api/comments/like/<comment_id>/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )

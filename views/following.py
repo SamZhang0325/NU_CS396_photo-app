@@ -3,7 +3,8 @@ from flask_restful import Resource
 from models import Following, User, db
 from . import check_int
 import json
-
+import flask_jwt_extended
+import decorators
 
 def get_path():
     return request.host_url + 'api/posts/'
@@ -13,6 +14,7 @@ class FollowingListEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
+    @decorators.jwt_or_login
     def get(self):
         data = Following.query.filter(
             Following.user_id == self.current_user.id).all()
@@ -23,6 +25,7 @@ class FollowingListEndpoint(Resource):
         ]
         return Response(json.dumps(data), mimetype="application/json", status=200)
 
+    @decorators.jwt_or_login
     def post(self):
         body = request.get_json()
         following_id = body.get('user_id')
@@ -44,6 +47,7 @@ class FollowingDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
+    @decorators.jwt_or_login
     def delete(self, id):
         if not check_int(id):
             return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
@@ -71,11 +75,11 @@ def initialize_routes(api):
         FollowingListEndpoint,
         '/api/following',
         '/api/following/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
     api.add_resource(
         FollowingDetailEndpoint,
         '/api/following/<id>',
         '/api/following/<id>/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )

@@ -1,10 +1,10 @@
 from flask import Response, request
 from flask_restful import Resource
 from models import Post, db
-
 from views import security, get_authorized_user_ids
-
 import json
+import flask_jwt_extended
+import decorators
 
 def get_path():
     return request.host_url + 'api/posts/'
@@ -14,6 +14,7 @@ class PostListEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
+    @decorators.jwt_or_login
     def get(self):
         ids = get_authorized_user_ids(self.current_user)
         posts = Post.query.filter(Post.user_id.in_(ids))
@@ -36,6 +37,7 @@ class PostListEndpoint(Resource):
         ]
         return Response(json.dumps(data), mimetype="application/json", status=200)
 
+    @decorators.jwt_or_login
     def post(self):
         body = request.get_json()
         image_url = body.get('image_url')
@@ -59,6 +61,7 @@ class PostDetailEndpoint(Resource):
     
     @security.id_is_valid
     @security.user_can_edit_post
+    @decorators.jwt_or_login
     def patch(self, id):
         post = Post.query.get(id)
         body = request.get_json()
@@ -75,6 +78,7 @@ class PostDetailEndpoint(Resource):
     
     @security.id_is_valid
     @security.user_can_edit_post
+    @decorators.jwt_or_login
     def delete(self, id):
         Post.query.filter_by(id=id).delete()
         db.session.commit()
@@ -86,6 +90,7 @@ class PostDetailEndpoint(Resource):
 
     @security.id_is_valid
     @security.user_can_view_post
+    @decorators.jwt_or_login
     def get(self, id):
         post = Post.query.get(id)
         return Response(json.dumps(post.to_dict(user=self.current_user)), mimetype="application/json", status=200)
@@ -94,10 +99,10 @@ def initialize_routes(api):
     api.add_resource(
         PostListEndpoint, 
         '/api/posts', '/api/posts/', 
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
     api.add_resource(
         PostDetailEndpoint, 
         '/api/posts/<id>', '/api/posts/<id>/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )

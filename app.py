@@ -8,7 +8,7 @@ import os
 from models import db, User, ApiNavigator
 from views import bookmarks, comments, followers, following, \
     posts, profile, stories, suggestions, post_likes
-import flask_jwt_extended  
+import flask_jwt_extended
 import decorators
 from views import authentication, token
 
@@ -30,8 +30,8 @@ api = Api(app)
 
 
 # set logged in user
-with app.app_context():
-    app.current_user = User.query.filter_by(id=12).one()
+# with app.app_context():
+#     app.current_user = User.query.filter_by(id=12).one()
 
 
 # Initialize routes for all of your API endpoints:
@@ -47,13 +47,22 @@ profile.initialize_routes(api)
 stories.initialize_routes(api)
 suggestions.initialize_routes(api)
 
+# defines the function for retrieving a user from the database
+@jwt.user_lookup_loader
+def user_lookup_callback(_jwt_header, jwt_data):
+    # print('JWT data:', jwt_data)
+    # https://flask-jwt-extended.readthedocs.io/en/stable/automatic_user_loading/
+    user_id = jwt_data["sub"]
+    return User.query.filter_by(id=user_id).one_or_none()
+
 
 # Server-side template for the homepage:
 @app.route('/')
+@decorators.jwt_or_login
 def home():
     return render_template(
         'index.html', 
-        user=app.current_user
+        user=flask_jwt_extended.current_user
     )
 
 
@@ -65,7 +74,7 @@ def api_docs():
     navigator = ApiNavigator(flask_jwt_extended.current_user)
     return render_template(
         'api/api-docs.html', 
-        user=app.current_user,  #TODO: change to flask_jwt_extended.current_user
+        user=flask_jwt_extended.current_user,
         endpoints=navigator.get_endpoints(),
         access_token=access_token,
         csrf=csrf,

@@ -200,6 +200,7 @@ const likePost = (post_id, current_user_like_id) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        'X-CSRF-TOKEN': getCookie('csrf_access_token'),
       },
     })
       .then((response) => response.json())
@@ -213,6 +214,7 @@ const likePost = (post_id, current_user_like_id) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'X-CSRF-TOKEN': getCookie('csrf_access_token'),
       },
     })
       .then((response) => response.json())
@@ -233,6 +235,7 @@ const bookmarkPost = (post_id, current_user_bookmark_id) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        'X-CSRF-TOKEN': getCookie('csrf_access_token'),
       },
     })
       .then((response) => response.json())
@@ -249,6 +252,7 @@ const bookmarkPost = (post_id, current_user_bookmark_id) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'X-CSRF-TOKEN': getCookie('csrf_access_token'),
       },
       body: JSON.stringify(postData),
     })
@@ -269,6 +273,7 @@ const suggestedFollow = (suggestion_id, followingID) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        'X-CSRF-TOKEN': getCookie('csrf_access_token'),
       },
     })
       .then((response) => response.json())
@@ -285,6 +290,7 @@ const suggestedFollow = (suggestion_id, followingID) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'X-CSRF-TOKEN': getCookie('csrf_access_token'),
       },
       body: JSON.stringify(postData),
     })
@@ -307,6 +313,7 @@ const submitComment = (event) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      'X-CSRF-TOKEN': getCookie('csrf_access_token'),
     },
     body: JSON.stringify(postData),
   })
@@ -398,3 +405,19 @@ function logKey(e) {
     closePostModal();
   }
 }
+
+const getCookie = key => {
+  let name = key + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+      }
+  }
+  return "";
+};

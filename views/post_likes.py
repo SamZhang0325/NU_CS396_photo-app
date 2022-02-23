@@ -3,13 +3,15 @@ from flask_restful import Resource
 from models import LikePost, db
 import json
 from . import can_view_post, check_int
-
+import flask_jwt_extended
+import decorators
 
 class PostLikesListEndpoint(Resource):
 
     def __init__(self, current_user):
         self.current_user = current_user
 
+    @decorators.jwt_or_login
     def post(self, post_id):
         if not check_int(post_id):
             return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
@@ -29,6 +31,7 @@ class PostLikesDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
+    @decorators.jwt_or_login
     def delete(self, post_id, id):
         if not check_int(id) or not check_int(post_id):
             return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
@@ -56,12 +59,12 @@ def initialize_routes(api):
         PostLikesListEndpoint,
         '/api/posts/<post_id>/likes',
         '/api/posts/<post_id>/likes/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
 
     api.add_resource(
         PostLikesDetailEndpoint,
         '/api/posts/<post_id>/likes/<id>',
         '/api/posts/<post_id>/likes/<id>/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )

@@ -2,7 +2,8 @@ from flask import Response, request
 from flask_restful import Resource
 from models import Following
 import json
-
+import flask_jwt_extended
+import decorators
 
 def get_path():
     return request.host_url + 'api/posts/'
@@ -12,6 +13,7 @@ class FollowerListEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
+    @decorators.jwt_or_login
     def get(self):
         data = Following.query.filter(
             Following.following_id == self.current_user.id).all()
@@ -28,5 +30,5 @@ def initialize_routes(api):
         FollowerListEndpoint,
         '/api/followers',
         '/api/followers/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )

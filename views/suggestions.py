@@ -3,13 +3,15 @@ from flask_restful import Resource
 from models import User, Following
 from . import get_authorized_user_ids
 import json
-
+import flask_jwt_extended
+import decorators
 
 class SuggestionsListEndpoint(Resource):
 
     def __init__(self, current_user):
         self.current_user = current_user
 
+    @decorators.jwt_or_login
     def get(self):
         data = User.query.filter(User.id.not_in(
             get_authorized_user_ids(self.current_user))).limit(7).all()
@@ -26,5 +28,5 @@ def initialize_routes(api):
         SuggestionsListEndpoint,
         '/api/suggestions',
         '/api/suggestions/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
