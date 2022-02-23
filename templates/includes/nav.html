@@ -1,5 +1,6 @@
 <nav>
     <h1>Photo App</h1>
+    {% if user %}
     <div class=userControlPannel>
         {% if request.url_rule.endpoint == 'api_docs' %}
         <a href="/" class="mainTab">Home</a>
@@ -7,6 +8,7 @@
         <a href="/api" class="mainTab">API Docs</a>
         {% endif %}
         <a style="margin-left: 10px;">{{ user.username }}</a>
-        <a><a href="#" style="margin-left: 10px;" class="mainTab">Sign out</a></a>
+        <a><a href="/logout" style="margin-left: 10px;" class="mainTab">Sign out</a></a>
     </div>
+    {% endif %}
 </nav>
