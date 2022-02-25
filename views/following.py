@@ -4,7 +4,7 @@ from models import Following, User, db
 from . import check_int
 import json
 import flask_jwt_extended
-import decorators
+from flask_jwt_extended import jwt_required
 
 def get_path():
     return request.host_url + 'api/posts/'
@@ -14,7 +14,7 @@ class FollowingListEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def get(self):
         data = Following.query.filter(
             Following.user_id == self.current_user.id).all()
@@ -25,7 +25,7 @@ class FollowingListEndpoint(Resource):
         ]
         return Response(json.dumps(data), mimetype="application/json", status=200)
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def post(self):
         body = request.get_json()
         following_id = body.get('user_id')
@@ -47,7 +47,7 @@ class FollowingDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def delete(self, id):
         if not check_int(id):
             return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)

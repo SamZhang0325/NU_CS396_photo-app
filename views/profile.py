@@ -3,7 +3,7 @@ from flask_restful import Resource
 from models import User
 import json
 import flask_jwt_extended
-import decorators
+from flask_jwt_extended import jwt_required
 
 def get_path():
     return request.host_url + 'api/posts/'
@@ -14,7 +14,7 @@ class ProfileDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
     
-    @decorators.jwt_or_login
+    @jwt_required()
     def get(self):
         data = User.query.get(self.current_user.id)
         if not data:

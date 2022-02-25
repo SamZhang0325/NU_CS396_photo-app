@@ -4,14 +4,14 @@ from models import User, Following
 from . import get_authorized_user_ids
 import json
 import flask_jwt_extended
-import decorators
+from flask_jwt_extended import jwt_required
 
 class SuggestionsListEndpoint(Resource):
 
     def __init__(self, current_user):
         self.current_user = current_user
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def get(self):
         data = User.query.filter(User.id.not_in(
             get_authorized_user_ids(self.current_user))).limit(7).all()

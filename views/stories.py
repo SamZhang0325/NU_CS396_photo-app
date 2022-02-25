@@ -5,13 +5,14 @@ from . import get_authorized_user_ids
 import json
 import flask_jwt_extended
 import decorators
+from flask_jwt_extended import jwt_required
 
 class StoriesListEndpoint(Resource):
 
     def __init__(self, current_user):
         self.current_user = current_user
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def get(self):
         data = Story.query.filter(Story.user_id.in_(
             get_authorized_user_ids(self.current_user))).all()

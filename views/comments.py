@@ -5,6 +5,7 @@ import json
 from models import db, Comment, Post, LikeComment
 import flask_jwt_extended
 import decorators
+from flask_jwt_extended import jwt_required
 
 
 class CommentListEndpoint(Resource):
@@ -12,7 +13,7 @@ class CommentListEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def post(self):
         body = request.get_json()
         post_id = body.get('post_id')
@@ -34,7 +35,7 @@ class CommentDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def delete(self, id):
         if not check_int(id):
             return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
@@ -54,7 +55,7 @@ class CommentLikeEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def post(self, comment_id):
         if not check_int(comment_id):
             return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)

@@ -5,14 +5,15 @@ from . import check_int
 import json
 from . import can_view_post
 import flask_jwt_extended
-import decorators
+from flask_jwt_extended import jwt_required
+
 
 class BookmarksListEndpoint(Resource):
 
     def __init__(self, current_user):
         self.current_user = current_user
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def get(self):
         data = Bookmark.query.filter(
             Bookmark.user_id == self.current_user.id).all()
@@ -23,7 +24,7 @@ class BookmarksListEndpoint(Resource):
             return Response(json.dumps({'message': 'You do not have any bookmark'}), mimetype="application/json", status=404)
         return Response(json.dumps(data), mimetype="application/json", status=200)
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def post(self):
         body = request.get_json()
         post_id = body.get('post_id')
@@ -45,7 +46,7 @@ class BookmarkDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def delete(self, id):
         if not check_int(id):
             return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)

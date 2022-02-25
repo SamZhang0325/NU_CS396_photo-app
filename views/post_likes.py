@@ -4,14 +4,14 @@ from models import LikePost, db
 import json
 from . import can_view_post, check_int
 import flask_jwt_extended
-import decorators
+from flask_jwt_extended import jwt_required
 
 class PostLikesListEndpoint(Resource):
 
     def __init__(self, current_user):
         self.current_user = current_user
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def post(self, post_id):
         if not check_int(post_id):
             return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)
@@ -31,7 +31,7 @@ class PostLikesDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
 
-    @decorators.jwt_or_login
+    @jwt_required()
     def delete(self, post_id, id):
         if not check_int(id) or not check_int(post_id):
             return Response(json.dumps({'message': 'Invalid input'}), mimetype="application/json", status=400)

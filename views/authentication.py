@@ -25,19 +25,20 @@ def login():
         if(not passWord):
             error = True
             message = "Missing Password"
-        user = User.query.filter_by(username = userName).one_or_none()
-        if user:
-            if user.check_password(passWord):
-                access_token = flask_jwt_extended.create_access_token(identity = user.id)
-                response = make_response(redirect('/'))
-                flask_jwt_extended.set_access_cookies(response, access_token)
-                return response
+        if(not error):
+            user = User.query.filter_by(username = userName).one_or_none()
+            if user:
+                if user.check_password(passWord):
+                    access_token = flask_jwt_extended.create_access_token(identity = user.id)
+                    response = make_response(redirect('/'))
+                    flask_jwt_extended.set_access_cookies(response, access_token)
+                    return response
+                else:
+                    error = True
+                    message = "Wrong password or username!"
             else:
                 error = True
                 message = "Wrong password or username!"
-        else:
-            error = True
-            message = "Wrong password or username!"
                 
         if(error):
             return render_template(
