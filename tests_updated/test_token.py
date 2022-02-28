@@ -103,7 +103,7 @@ class TestRefreshTokenEndpoint(unittest.TestCase):
         }
         response = requests.post(url, json=data)
         data = response.json()
-        print(data)
+        # print(data)
         access_token = data.get('access_token')
         
         # Now use the token to access protected resource:
@@ -125,8 +125,8 @@ class TestRefreshTokenEndpoint(unittest.TestCase):
             'refresh_token': 'abcde'
         }
         response = requests.post(url, json=data)
-        print("response")
-        print(response.json())
+        # print("response")
+        # print(response.json())
         self.assertEqual(response.status_code, 400)
 
     def test_expired_refresh_token_yields_401(self):
