@@ -44,7 +44,28 @@
             color: #c91111;
             margin-bottom: 10px;
         }
+        .demoButton{
+            display: flex;
+            flex-direction: column;
+            max-width: 450px;
+            background: white;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10vh;
+            background-color: gray;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 1.3em;
+            border: solid 1px #FFF;
+        }
     </style>
+    <script>
+        function demoAccount(){
+            document.getElementById("username").value = "webdev";
+            document.getElementById("password").value = "password";
+        }
+    </script>
 </head>
 <body>
     <!-- Nav Bar still rendered via server-side template -->
@@ -62,7 +83,7 @@
             <input name="password" type="password" value="" id="password" placeholder="password"><br>
         </div>
         <button type="submit">Login</button>
-    </form> 
-    </form> 
+    </form>
+    <button class="demoButton" onclick="demoAccount()">Demo Account</button>
 </body>
 </html>

@@ -1,6 +1,6 @@
 # CS396-Intro to Web Development-Homework-photo_app
 
-Code for CS396 Homework-photo_app for Pengxiang Zhang and Hao Zhang
+Code for CS396 Homework-photo_app for Pengxiang Zhang
 
 ## Installation
 To install dependencies, navigate to your `photo-app` directory on your command line and issue the following commands:
